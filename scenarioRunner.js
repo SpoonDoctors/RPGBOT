@@ -1,5 +1,4 @@
-var potString = "Potato";
-
 function testMulti() {
+  var potString = "Potato";
   return potString;
 }
