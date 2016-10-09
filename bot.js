@@ -7,12 +7,15 @@ var scenarioHash = null;
 var userCharacter = new characterFile.character();
 var allCharacterRaces = ["Human", "Android", "Glorgok", "Ikatrians", "Zolts"];
 var allCharacterClasses = ["Warrior", "Rogue", "Ranger", "Berzerker", "Xenomancer"];
+var globalFrameID = 10;
 
 var botID = process.env.BOT_ID;
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
-      botRegexKya = /(.|)*(k|K)ya!~/; botRegexParse = /(P|p)arse/; botRegexLoadParse = /(L|l)oad scenario/;
+      botRegexParse = /(P|p)arse/; 
+      botRegexLoadParse = /(L|l)oad scenario/;
+      botRegexStart = /(S|s)tart/;
       botNewchar = /(.|)*newchar/;
       botSetName = /^setname/;
       botGetRaces = /^getraces/;
@@ -33,6 +36,12 @@ function respond() {
     postMessage("Type: setclass 'class_name'");
     this.res.end();
   }
+  else if(request.text && botRegexStart.test(request.text){
+    this.res.writeHead(200);
+    postMessage(scenarioHash["10"]);
+    globalFrameID = 11;
+    this.res.end();
+  }        
   //get character classes
   else if(request.text && botGetClasses.test(request.text) ){
     this.res.writeHead(200);
