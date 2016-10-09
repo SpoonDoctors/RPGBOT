@@ -26,10 +26,6 @@ function respond() {
   }
 }
 
-function parseFile(){
- return fs.readFileSync('./testText.txt', 'utf8'); 
-}  
-
 function postMessage(response) {
   var botResponse,options, body, botReq;
 
@@ -76,6 +72,5 @@ function getReturnString(phrase, reqName){
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
-
 
 exports.respond = respond;
