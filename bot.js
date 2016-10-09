@@ -36,12 +36,11 @@ function respond() {
     postMessage("Type: setclass 'class_name'");
     this.res.end();
   }
-//   else if(request.text && botRegexStart.test(request.text){
-//     this.res.writeHead(200);
-//     postMessage(scenarioHash["10"]);
-//     globalFrameID = 11;
-//     this.res.end();
-//   }        
+  if(request.text && botRegexStart.test(request.text)){
+    this.res.writeHead(200);
+    postMessage(scenarioHash["10"]);
+    this.res.end();
+  }  
   //get character classes
   else if(request.text && botGetClasses.test(request.text) ){
     this.res.writeHead(200);
