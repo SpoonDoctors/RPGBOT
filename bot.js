@@ -28,7 +28,7 @@ function respond() {
       botGetClasses = /^getclasses/;
       botSetStats = /^setstats/;
   
-
+//Should use a series of flags. This was done for the sake of speed
   if(request.text && botNewchar.test(request.text)){
     this.res.writeHead(200);
     postMessage("Okay lets make a new character! Use the following commands to customize your character. Use getraces & getclasses for more information on race/class"); 
@@ -37,13 +37,13 @@ function respond() {
     postMessage("Type: setclass 'class_name'");
     this.res.end();
   }
-  if(request.text && botRegexStart.test(request.text)){
+  else if(request.text && botRegexStart.test(request.text)){
     this.res.writeHead(200);
     postMessage(scenarioHash["10"]);
     globalFrameID = globalFrameID + 1;
     this.res.end();
   }
-  if(request.text && botRegexContinue.test(request.text)){
+  else if(request.text && botRegexContinue.test(request.text)){
     this.res.writeHead(200);
     postMessage(scenarioHash[globalFrameID.toString()]);
     globalFrameID = globalFrameID + 1;
