@@ -1,6 +1,6 @@
 function parseStory(scenarioText) {
-  var myString = "something format_abc";
-  var myRegexp = /(?:^|\s)format_(.*?)(?:\s|$)/g;
+
+  var myRegexp = /~.*~/g;
   var match = myRegexp.exec(myString);
   var matches = 0;
   while (match != null) {
