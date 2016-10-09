@@ -1,5 +1,11 @@
-function parseStory(scenarioText) {
+var frameArray = [];
 
+function storyFrame(){
+  this.frameID = null;
+  this.text = "";
+}  
+
+function parseStory(scenarioText) {
   var myRegexp = /~.*~/g;
   var match = myRegexp.exec(scenarioText);
   var matches = 0;
@@ -14,3 +20,4 @@ function parseStory(scenarioText) {
   return matches.toString();
 }
 module.exports.parseStory = parseStory;
+module.exports.storyFrame = storyFrame;
