@@ -7,8 +7,8 @@ function storyFrame(){
 
 var aFrame = new storyFrame();
 
-frameArray.prototype.setID = function(ID){
-  this.frameID = ID;
+frameArray.prototype.setID = function(textID){
+  this.frameID = textID;
 }
 frameArray.prototype.setText = function(text){
   this.frameText = text;
