@@ -20,8 +20,9 @@ function parseStory(scenarioText) {
   var myRegexp = /~.*~/g;
   var match = myRegexp.exec(scenarioText);
   var matches = 0;
+  var newStoryFrame = new storeyFrame();
   while (match != null) {
-    frameArray.push(new storyFrame());
+    frameArray.push(newStoryFrame);
     frameArray[index].setText(match[0]);
     frameArray[index].setID(match[0]);
     match = myRegexp.exec(scenarioText);
