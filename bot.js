@@ -5,12 +5,17 @@ var botID = process.env.BOT_ID;
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
-      botRegexKya = /(.|)*(k|K)ya!~/;
+      botRegexKya = /(.|)*(k|K)ya!~/; botRegexParse = /(P|p)arse/;
   
 
   if(request.text && botRegexKya.test(request.text)) {
     this.res.writeHead(200);
     postMessage(scenario.testMulti());
+    this.res.end();
+  }
+  else if(request.text && botRegexParse.test(request.text)) {
+    this.res.writeHead(200);
+    postMessage("Ready to parse");
     this.res.end();
   }
   else {
