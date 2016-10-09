@@ -1,5 +1,6 @@
 var HTTPS = require('https');
 var scenario = require('./scenarioRunner.js');
+var fs = require('fs');
 
 var botID = process.env.BOT_ID;
 
@@ -15,7 +16,7 @@ function respond() {
   }
   else if(request.text && botRegexParse.test(request.text)) {
     this.res.writeHead(200);
-    postMessage("Ready to parse");
+    postMessage("Ready to go");
     this.res.end();
   }
   else {
