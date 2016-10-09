@@ -7,12 +7,16 @@ var scenarioHash = null;
 var userCharacter = new characterFile.character();
 var allCharacterRaces = ["Human", "Android", "Glorgok", "Ikatrians", "Zolts"];
 var allCharacterClasses = ["Warrior", "Rogue", "Ranger", "Berzerker", "Xenomancer"];
+var globalFrameID = 10;
 
 var botID = process.env.BOT_ID;
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
-      botRegexKya = /(.|)*(k|K)ya!~/; botRegexParse = /(P|p)arse/; botRegexLoadParse = /(L|l)oad scenario/;
+      botRegexParse = /(P|p)arse/;
+      botRegexContinue = /(C|c)ontinue/;
+      botRegexLoadParse = /(L|l)oad scenario/;
+      botRegexStart = /(S|s)tart/;
       botNewchar = /(.|)*newchar/;
       botSetName = /^setname/;
       botGetRaces = /^getraces/;
@@ -24,13 +28,25 @@ function respond() {
       botGetClasses = /^getclasses/;
       botSetStats = /^setstats/;
   
-
+//Should use a series of flags. This was done for the sake of speed
   if(request.text && botNewchar.test(request.text)){
     this.res.writeHead(200);
     postMessage("Okay lets make a new character! Use the following commands to customize your character. Use getraces & getclasses for more information on race/class"); 
     postMessage("Type: setname 'character_name'"); 
     postMessage("Type: setrace 'race_name'"); 
     postMessage("Type: setclass 'class_name'");
+    this.res.end();
+  }
+  else if(request.text && botRegexStart.test(request.text)){
+    this.res.writeHead(200);
+    postMessage(scenarioHash["10"]);
+    globalFrameID = globalFrameID + 1;
+    this.res.end();
+  }
+  else if(request.text && botRegexContinue.test(request.text)){
+    this.res.writeHead(200);
+    postMessage(scenarioHash[globalFrameID.toString()]);
+    globalFrameID = globalFrameID + 1;
     this.res.end();
   }
   //get character classes
@@ -104,8 +120,8 @@ function respond() {
   else if(request.text &&  botSetStats.test(request.text)){
     this.res.writeHead(200);
     userCharacter.setCharacterStats( userCharacter.getCharacterRace(), userCharacter.getCharacterClass() );
-    //var attMsg = "Attack level: " + userCharacter.getAttack().toString();
-    //postMessage(attMsg);
+    var msg = "Attack level: " + userCharacter.getAttack().toString();
+    postMessage(msg);
     this.res.end();
   }
   else if(request.text && botRegexParse.test(request.text)) {
