@@ -16,7 +16,7 @@ function respond() {
   }
   else if(request.text && botRegexParse.test(request.text)) {
     this.res.writeHead(200);
-    postMessage(fs.readFileSync('./testText.txt', 'utf8'));
+    postMessage(parseFile());
     this.res.end();
   }
   else {
@@ -25,6 +25,10 @@ function respond() {
     this.res.end();
   }
 }
+
+function parseFile(){
+ return fs.readFileSync('./testText.txt', 'utf8'); 
+}  
 
 function postMessage(response) {
   var botResponse,options, body, botReq;
