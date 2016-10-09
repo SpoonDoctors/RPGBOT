@@ -15,7 +15,7 @@ function respond() {
   var request = JSON.parse(this.req.chunks[0]),
       botRegexParse = /(P|p)arse/; 
       botRegexLoadParse = /(L|l)oad scenario/;
-      //botRegexStart = /(S|s)tart/;
+      botRegexStart = /(S|s)tart/;
       botNewchar = /(.|)*newchar/;
       botSetName = /^setname/;
       botGetRaces = /^getraces/;
