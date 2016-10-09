@@ -13,7 +13,8 @@ var botID = process.env.BOT_ID;
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
-      botRegexParse = /(P|p)arse/; 
+      botRegexParse = /(P|p)arse/;
+      botRegexContinue = /(C|c)ontinue/;
       botRegexLoadParse = /(L|l)oad scenario/;
       botRegexStart = /(S|s)tart/;
       botNewchar = /(.|)*newchar/;
@@ -41,7 +42,13 @@ function respond() {
     postMessage(scenarioHash["10"]);
     globalFrameID = globalFrameID + 1;
     this.res.end();
-  }  
+  }
+  if(request.text && botRegexContinue.test(request.text)){
+    this.res.writeHead(200);
+    postMessage(scenarioHash[globalFrameID.toString()]);
+    globalFrameID = globalFrameID + 1;
+    this.res.end();
+  }
   //get character classes
   else if(request.text && botGetClasses.test(request.text) ){
     this.res.writeHead(200);
