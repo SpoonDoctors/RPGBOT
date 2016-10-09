@@ -26,10 +26,10 @@ function parseStory(scenarioText){
   var matchingString = null;
   while (match != null) {
     matchingString = match[0];
-    frameArray[matchingString.substring(matchingString.length-4,matchingString.length-1)] = matchingString.substring(1 , matchingString.length-4);
+    frameArray[matchingString.substring(matchingString.length-3,matchingString.length-1)] = matchingString.substring(1 , matchingString.length-4);
     match = myRegexp.exec(scenarioText);
     index = index + 1;
   }
-  return matchingString.substring(matchingString.length-4,matchingString.length-1);
+  return matchingString.substring(matchingString.length-3,matchingString.length-1);
 }
 module.exports.parseStory = parseStory;
