@@ -1,7 +1,7 @@
 function parseStory(scenarioText) {
-  var myString = "something format_abc";
-  var myRegexp = /(?:^|\s)format_(.*?)(?:\s|$)/g;
-  var match = myRegexp.exec(myString);
+
+  var myRegexp = /~.*~/g;
+  var match = myRegexp.exec(scenarioText);
   var matches = 0;
   while (match != null) {
     matches = matches + 1;
@@ -9,7 +9,7 @@ function parseStory(scenarioText) {
     // match start: match.index
     // capturing group n: match[n]
     console.log(match[0])
-    match = myRegexp.exec(myString);
+    match = myRegexp.exec(scenarioText);
   }
   return matches.toString();
 }
