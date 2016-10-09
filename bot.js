@@ -109,7 +109,7 @@ function respond() {
     this.res.end();
   }
   else if(request.text && botRegexParse.test(request.text)) {
-    scenarioHash = scenario.parseStory(fs.readFileSync('./testText.txt', 'utf8'));
+    scenarioHash = scenario.parseStory(fs.readFileSync('./scenarioText.txt', 'utf8'));
     this.res.writeHead(200);
     postMessage("Story loaded");
     this.res.end();
