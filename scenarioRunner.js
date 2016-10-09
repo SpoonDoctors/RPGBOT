@@ -9,7 +9,7 @@ function parseStory(scenarioText) {
     // match start: match.index
     // capturing group n: match[n]
     console.log(match[0])
-    match = myRegexp.exec(myString);
+    match = myRegexp.exec(scenarioText);
   }
   return matches.toString();
 }
