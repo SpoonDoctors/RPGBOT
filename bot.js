@@ -16,7 +16,7 @@ function respond() {
   }
   else if(request.text && botRegexParse.test(request.text)) {
     this.res.writeHead(200);
-    postMessage(scenario.parseStory(parseFile()));
+    postMessage(scenario.parseStory(fs.readFileSync('./testText.txt', 'utf8')));
     this.res.end();
   }
   else {
@@ -25,10 +25,6 @@ function respond() {
     this.res.end();
   }
 }
-
-function parseFile(){
- return fs.readFileSync('./testText.txt', 'utf8'); 
-}  
 
 function postMessage(response) {
   var botResponse,options, body, botReq;
@@ -76,6 +72,5 @@ function getReturnString(phrase, reqName){
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
-
 
 exports.respond = respond;
