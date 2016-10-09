@@ -5,15 +5,14 @@ function storyFrame(){
   this.frameText = "";
 }
 
-var aFrame = new storyFrame();
 
-frameArray.prototype.setID = function(ID){
+storyFrame.prototype.setID = function(ID){
   this.frameID = ID;
 }
-frameArray.prototype.setText = function(text){
+storyFrame.prototype.setText = function(text){
   this.frameText = text;
 }
-frameArray.prototype.getID = function(){
+storyFrame.prototype.getID = function(){
   return this.frameID;  
 }  
 
@@ -22,9 +21,9 @@ function parseStory(scenarioText) {
   var match = myRegexp.exec(scenarioText);
   var matches = 0;
   while (match != null) {
-    aFrame.setText(match[0]);
-    aFrame.setID(match[0]);
-    frameArray[index] = aFrame;
+    frameArray.push(new storyFrame());
+    frameArray[index].setText(match[0]);
+    frameArray[index].setID(match[0]);
     match = myRegexp.exec(scenarioText);
     index = index + 1;
   }
