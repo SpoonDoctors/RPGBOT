@@ -1,5 +1,4 @@
-function testMulti() {
-  var potString = "Potato";
-  return potString;
+function parseStory(scenarioText) {
+  return scenarioText;
 }
-module.exports.testMulti = testMulti;
+module.exports.parseStory = parseStory;
