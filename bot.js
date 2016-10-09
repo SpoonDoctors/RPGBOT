@@ -1,16 +1,22 @@
 var HTTPS = require('https');
 var scenario = require('./scenarioRunner.js');
+var fs = require('fs');
 
 var botID = process.env.BOT_ID;
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
-      botRegexKya = /(.|)*(k|K)ya!~/;
+      botRegexKya = /(.|)*(k|K)ya!~/; botRegexParse = /(P|p)arse/;
   
 
   if(request.text && botRegexKya.test(request.text)) {
     this.res.writeHead(200);
     postMessage(scenario.testMulti());
+    this.res.end();
+  }
+  else if(request.text && botRegexParse.test(request.text)) {
+    this.res.writeHead(200);
+    postMessage(parseFile());
     this.res.end();
   }
   else {
@@ -19,6 +25,10 @@ function respond() {
     this.res.end();
   }
 }
+
+function parseFile(){
+ return fs.readFileSync('./testText.txt', 'utf8'); 
+}  
 
 function postMessage(response) {
   var botResponse,options, body, botReq;
