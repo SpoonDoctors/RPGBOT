@@ -14,7 +14,10 @@ storyFrame.prototype.setText = function(text){
 }
 storyFrame.prototype.getID = function(){
   return this.frameID;  
-}  
+}
+storyFrame.prototype.getText = function(){
+  return this.frameText;  
+}
 
 function parseStory(scenarioText) {
   var myRegexp = /~.*~/g;
@@ -27,6 +30,6 @@ function parseStory(scenarioText) {
     match = myRegexp.exec(scenarioText);
     index = index + 1;
   }
-  return frameArray[1].getID();
+  return frameArray[1].getText();
 }
 module.exports.parseStory = parseStory;
