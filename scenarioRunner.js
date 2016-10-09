@@ -8,7 +8,7 @@ function parseStory(scenarioText) {
     // matched text: match[0]
     // match start: match.index
     // capturing group n: match[n]
-    console.log(match[0])
+    console.log(match[0]);
     match = myRegexp.exec(scenarioText);
   }
   return matches.toString();
