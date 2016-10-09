@@ -19,13 +19,14 @@ storyFrame.prototype.getText = function(){
   return this.frameText;  
 }
 
-function parseStory(scenarioText) {
+function parseStory(scenarioText){
   var myRegexp = /~.*~/g;
   var match = myRegexp.exec(scenarioText);
   var matches = 0;
   var matchingString = null;
   while (match != null) {
     matchingString = match[0];
+    frameArray[matchingString.substring((matchingString.length-4,matchingString.length-1)] = matchingString.substring(1 , matchingString.length-4);
     match = myRegexp.exec(scenarioText);
     index = index + 1;
   }
