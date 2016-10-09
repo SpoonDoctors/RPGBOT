@@ -1,6 +1,6 @@
 function parseStory(scenarioText) {
-  var myRegexp = /~.*~/;
-  var match = myRegexp.exec(myString);
+  var myRegexp = /~.*~/g;
+  match = myRegexp.exec(myString);
   var matches = 0;
   while (match != null) {
     matches = matches + 1;
