@@ -25,7 +25,6 @@ function parseStory(scenarioText) {
   var matches = 0;
   var matchingString = null;
   while (match != null) {
-    frameArray.push(new storyFrame());
     matchingString = match[0];
     match = myRegexp.exec(scenarioText);
     index = index + 1;
