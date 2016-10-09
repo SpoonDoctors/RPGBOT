@@ -38,8 +38,7 @@ function respond() {
   }
   else if(request.text && botRegexStart.test(request.text){
     this.res.writeHead(200);
-    postMessage(scenarioHash["10"]);
-    globalFrameID = 11;
+    postMessage("Pie");
     this.res.end();
   }        
   //get character classes
