@@ -1,16 +1,32 @@
-function parseStory(scenarioText) {
+var frameArray = [];
+var index = 0;
+function storyFrame(){
+  this.frameID = "";
+  this.frameText = "";
+}
 
+
+storyFrame.prototype.setID = function(ID){
+  this.frameID = ID;
+}
+storyFrame.prototype.setText = function(text){
+  this.frameText = text;
+}
+storyFrame.prototype.getID = function(){
+  return this.frameID;  
+}  
+
+function parseStory(scenarioText) {
   var myRegexp = /~.*~/g;
   var match = myRegexp.exec(scenarioText);
   var matches = 0;
   while (match != null) {
-    matches = matches + 1;
-    // matched text: match[0]
-    // match start: match.index
-    // capturing group n: match[n]
-    console.log(match[0]);
+    frameArray.push(new storyFrame());
+    frameArray[index].setText(match[0]);
+    frameArray[index].setID(match[0]);
     match = myRegexp.exec(scenarioText);
+    index = index + 1;
   }
-  return matches.toString();
+  return frameArray[1].getID();
 }
 module.exports.parseStory = parseStory;
