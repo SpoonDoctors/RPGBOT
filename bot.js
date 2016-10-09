@@ -1,12 +1,13 @@
 var HTTPS = require('https');
 var scenario = require('./scenarioRunner.js');
 var fs = require('fs');
+var scenarioHash = null;
 
 var botID = process.env.BOT_ID;
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
-      botRegexKya = /(.|)*(k|K)ya!~/; botRegexParse = /(P|p)arse/;
+      botRegexKya = /(.|)*(k|K)ya!~/; botRegexParse = /(P|p)arse/; botRegexLoadParse = /(L|l)oad scenario/;
   
 
   if(request.text && botRegexKya.test(request.text)) {
@@ -15,8 +16,14 @@ function respond() {
     this.res.end();
   }
   else if(request.text && botRegexParse.test(request.text)) {
+    scenarioHash = scenario.parseStory(fs.readFileSync('./testText.txt', 'utf8'));
     this.res.writeHead(200);
-    postMessage(scenario.parseStory(fs.readFileSync('./testText.txt', 'utf8')));
+    postMessage("Story loaded");
+    this.res.end();
+  }
+  else if(request.text && botRegexLoadParse.test(request.text)) {
+    this.res.writeHead(200);
+    postMessage(scenarioHash["02"]);
     this.res.end();
   }
   else {
