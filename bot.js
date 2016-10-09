@@ -11,7 +11,7 @@ function respond() {
 
   if(request.text && botRegexKya.test(request.text)) {
     this.res.writeHead(200);
-    postMessage(scenario.testMulti());
+    postMessage(scenario.parseStory(parseFile()));
     this.res.end();
   }
   else if(request.text && botRegexParse.test(request.text)) {
