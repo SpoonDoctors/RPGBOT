@@ -1,29 +1,138 @@
 var HTTPS = require('https');
 var scenario = require('./scenarioRunner.js');
+var characterFile = require('./characterCreator.js');
 var fs = require('fs');
+
 var scenarioHash = null;
+var userCharacter = new characterFile.character();
+var allCharacterRaces = ["Human", "Android", "Glorgok", "Ikatrians", "Zolts"];
+var allCharacterClasses = ["Warrior", "Rogue", "Ranger", "Berzerker", "Xenomancer"];
+var globalFrameID = 10;
 
 var botID = process.env.BOT_ID;
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
-      botRegexKya = /(.|)*(k|K)ya!~/; botRegexParse = /(P|p)arse/; botRegexLoadParse = /(L|l)oad scenario/;
+      botRegexParse = /(P|p)arse/;
+      botRegexContinue = /(C|c)ontinue/;
+      botRegexLoadParse = /(L|l)oad scenario/;
+      botRegexStart = /(S|s)tart/;
+      botNewchar = /(.|)*newchar/;
+      botSetName = /^setname/;
+      botGetRaces = /^getraces/;
+      botSetRace = /^setrace/;
+      botRaces = /(.|)*races/;
+      botHelp = /(.|)*help/;
+      botGetName = /^getname/;
+      botSetClass = /^setclass/;
+      botGetClasses = /^getclasses/;
+      botSetStats = /^setstats/;
   
-
-  if(request.text && botRegexKya.test(request.text)) {
+//Should use a series of flags. This was done for the sake of speed
+  if(request.text && botNewchar.test(request.text)){
     this.res.writeHead(200);
-    postMessage("Garbage");
+    postMessage("Okay lets make a new character! Use the following commands to customize your character. Use getraces & getclasses for more information on race/class"); 
+    postMessage("Type: setname 'character_name'"); 
+    postMessage("Type: setrace 'race_name'"); 
+    postMessage("Type: setclass 'class_name'");
+    this.res.end();
+  }
+  else if(request.text && botRegexStart.test(request.text)){
+    this.res.writeHead(200);
+    postMessage(scenarioHash["10"]);
+    globalFrameID = globalFrameID + 1;
+    this.res.end();
+  }
+  else if(request.text && botRegexContinue.test(request.text)){
+    this.res.writeHead(200);
+    postMessage(scenarioHash[globalFrameID.toString()]);
+    globalFrameID = globalFrameID + 1;
+    this.res.end();
+  }
+  //get character classes
+  else if(request.text && botGetClasses.test(request.text) ){
+    this.res.writeHead(200);
+    var msg = "";
+    for(var i = 0; i < 5; i++){
+      msg = msg + allCharacterClasses[i];
+      if(i !=4 ){
+          msg = msg + ", ";
+      }
+    }
+    postMessage(msg);
+    this.res.end();
+  }
+  //set character class
+  else if(request.text && botSetClass.test(request.text) ){
+    this.res.writeHead(200);
+    var className = request.text.substring(9,100);
+    userCharacter.setCharacterClass(className);
+    var sayClassName = "Your class is: " + userCharacter.getCharacterClass();
+    postMessage(sayClassName);
+    this.res.end();
+  }
+  //get character races
+  else if(request.text && botGetRaces.test(request.text) ){
+    this.res.writeHead(200);
+    var msg = "";
+    for(var i = 0; i < 5; i++){
+      msg = msg + allCharacterRaces[i];
+      if(i !=4 ){
+        msg = msg + ", ";
+      }
+    }
+    postMessage(msg);
+    this.res.end();
+  }
+  //set character race
+  else if(request.text && botSetRace.test(request.text) ){
+    this.res.writeHead(200);
+    var raceName = request.text.substring(8,100);
+    userCharacter.setCharacterRace(raceName);
+    var sayRaceName = "Your race is: " + userCharacter.getCharacterRace();
+    postMessage(sayRaceName);
+    this.res.end();
+  }
+  //set character name
+  else if(request.text && botSetName.test(request.text) ){
+    this.res.writeHead(200);
+    var charName = request.text.substring(8,100);
+    userCharacter.setCharacterName(charName);
+    var sayCharName = userCharacter.getCharacterName();
+    postMessage(sayCharName);
+    this.res.end();
+  }
+  //help function
+  else if(request.text &&  botHelp.test(request.text)){
+    this.res.writeHead(200);
+    var msg = characterFile.help();
+    postMessage(msg);
+    this.res.end();
+  }
+  //get character name
+  else if(request.text &&  botGetName.test(request.text)){
+    this.res.writeHead(200);
+    var msg = userCharacter.getCharacterName();
+    postMessage(msg);
+    this.res.end();
+  }
+  //set stats
+  else if(request.text &&  botSetStats.test(request.text)){
+    this.res.writeHead(200);
+    userCharacter.setCharacterStats( userCharacter.getCharacterRace(), userCharacter.getCharacterClass() );
+    var msg = "Attack level: " + userCharacter.getAttack().toString();
+    postMessage(msg);
     this.res.end();
   }
   else if(request.text && botRegexParse.test(request.text)) {
-    scenarioHash = scenario.parseStory(fs.readFileSync('./testText.txt', 'utf8'));
+    scenarioHash = scenario.parseStory(fs.readFileSync('./scenarioText.txt', 'utf8'));
     this.res.writeHead(200);
     postMessage("Story loaded");
     this.res.end();
   }
   else if(request.text && botRegexLoadParse.test(request.text)) {
     this.res.writeHead(200);
-    postMessage(scenarioHash["02"]);
+    postMessage(scenarioHash["10"]);
     this.res.end();
   }
   else {
