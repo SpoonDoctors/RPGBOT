@@ -7,7 +7,7 @@ var botID = process.env.BOT_ID;
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
-      botRegexKya = /(.|)*(k|K)ya!~/; botRegexParse = /(P|p)arse/; botRegexLoadParse = /(L|l)oad parse/;
+      botRegexKya = /(.|)*(k|K)ya!~/; botRegexParse = /(P|p)arse/; botRegexLoadParse = /(L|l)oad scenario/;
   
 
   if(request.text && botRegexKya.test(request.text)) {
