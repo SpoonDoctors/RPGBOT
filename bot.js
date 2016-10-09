@@ -39,6 +39,7 @@ function respond() {
   if(request.text && botRegexStart.test(request.text)){
     this.res.writeHead(200);
     postMessage(scenarioHash["10"]);
+    globalFrameID = globalFrameID + 1;
     this.res.end();
   }  
   //get character classes
