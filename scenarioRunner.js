@@ -31,6 +31,6 @@ function parseStory(scenarioText) {
     match = myRegexp.exec(scenarioText);
     index = index + 1;
   }
-  return frameArray["02"];
+  return frameArray["01"];
 }
 module.exports.parseStory = parseStory;
