@@ -27,7 +27,6 @@ function parseStory(scenarioText) {
   while (match != null) {
     frameArray.push(new storyFrame());
     matchingString = match[0];
-    frameArray[matchingString.substring(matchingString.length-4,matchingString.length-1)] = matchingString.substring(1 , matchingString.length-4);
     match = myRegexp.exec(scenarioText);
     index = index + 1;
   }
