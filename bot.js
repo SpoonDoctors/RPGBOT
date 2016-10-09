@@ -116,7 +116,7 @@ function respond() {
   }
   else if(request.text && botRegexLoadParse.test(request.text)) {
     this.res.writeHead(200);
-    postMessage(scenarioHash["02"]);
+    postMessage(scenarioHash["10"]);
     this.res.end();
   }
   else {
