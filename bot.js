@@ -120,8 +120,8 @@ function respond() {
   else if(request.text &&  botSetStats.test(request.text)){
     this.res.writeHead(200);
     userCharacter.setCharacterStats( userCharacter.getCharacterRace(), userCharacter.getCharacterClass() );
-    //var attMsg = "Attack level: " + userCharacter.getAttack().toString();
-    //postMessage(attMsg);
+    var msg = "Attack level: " + userCharacter.getAttack().toString();
+    postMessage(msg);
     this.res.end();
   }
   else if(request.text && botRegexParse.test(request.text)) {
