@@ -18,7 +18,7 @@ function respond() {
   else if(request.text && botRegexParse.test(request.text)) {
     scenarioHash = scenario.parseStory(fs.readFileSync('./testText.txt', 'utf8'));
     this.res.writeHead(200);
-    postMessage("Story parsed");
+    postMessage("Story loaded");
     this.res.end();
   }
   else if(request.text && botRegexLoadParse.test(request.text)) {
