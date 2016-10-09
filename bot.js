@@ -16,7 +16,7 @@ function respond() {
   }
   else if(request.text && botRegexParse.test(request.text)) {
     this.res.writeHead(200);
-    postMessage("Ready to go");
+    postMessage(fs.readFileSync('/testText.txt', 'utf8'));
     this.res.end();
   }
   else {
