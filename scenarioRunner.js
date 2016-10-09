@@ -6,13 +6,13 @@ function storyFrame(){
 }
 
 
-frameArray.prototype.setID = function(textID){
+storyFrame.prototype.setID = function(textID){
   this.frameID = textID;
 }
-frameArray.prototype.setText = function(text){
+storyFrame.prototype.setText = function(text){
   this.frameText = text;
 }
-frameArray.prototype.getID = function(){
+storyFrame.prototype.getID = function(){
   return this.frameID;  
 }  
 
@@ -25,6 +25,7 @@ function parseStory(scenarioText) {
     frameArray.push(newStoryFrame);
     frameArray[index].setText(match[0]);
     frameArray[index].setID(match[0]);
+    console.log(match[0]);
     match = myRegexp.exec(scenarioText);
     index = index + 1;
   }
